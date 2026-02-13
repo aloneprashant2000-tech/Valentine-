@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>Valentine</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
 body {
 margin: 0;
@@ -15,6 +16,7 @@ align-items: center;
 font-family: Arial, sans-serif;
 overflow: hidden;
 }
+
 .card {
 background: white;
 padding: 30px;
@@ -25,53 +27,89 @@ width: 90%;
 max-width: 350px;
 position: relative;
 }
+
 h1 {
 color: #ff4d6d;
 margin-bottom: 25px;
 }
+
 button {
 padding: 12px 25px;
 font-size: 16px;
 border: none;
 border-radius: 25px;
 cursor: pointer;
+transition: 0.3s;
 }
+
 .yes {
 background: #ff4d6d;
 color: white;
 }
+
 .no {
 background: #ddd;
 position: absolute;
 left: 20px;
 top: 120px;
 }
+
+@keyframes spin {
+from { transform: rotate(0deg); }
+to { transform: rotate(360deg); }
+}
 </style>
 </head>
+
 <body>
 
 <div class="card">
-<h1>yourname, will you be my Valentine? ❤️</h1>
-<button class="yes" onclick="yesClick()">Yes ❤️</button>
+<h1>Anu, will you be my Valentine? ❤️</h1>
+<button class="yes" id="yesBtn" onclick="yesClick()">Yes ❤️</button>
 <button class="no" id="noBtn">No 😜</button>
 </div>
 
 <script>
 const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
 const card = document.querySelector(".card");
 
-function randomMove() {
-const maxX = card.clientWidth - noBtn.offsetWidth;
-const maxY = card.clientHeight - noBtn.offsetHeight;
+let clickCount = 0;
+let movingStarted = false;
 
-const x = Math.random() * maxX;
-const y = Math.random() * maxY;
+noBtn.addEventListener("click", function() {
+    clickCount++;
 
-noBtn.style.left = x + "px";
-noBtn.style.top = y + "px";
-}
+    // YES button grows every time
+    yesBtn.style.transform = `scale(${1 + clickCount * 0.2})`;
 
-setInterval(randomMove, 700);
+    if (clickCount === 1) {
+        noBtn.style.transform = "scale(0.7)";
+        noBtn.innerText = "Think again 😏";
+    }
+
+    else if (clickCount === 2) {
+        noBtn.style.transform = "scale(0.4)";
+        noBtn.innerText = "Are you sure? 🥺";
+    }
+
+    else if (clickCount === 3 && !movingStarted) {
+        movingStarted = true;
+        noBtn.innerText = "Catch me if you can 😜";
+        noBtn.style.animation = "spin 1s linear infinite";
+
+        setInterval(() => {
+            const maxX = card.clientWidth - noBtn.offsetWidth;
+            const maxY = card.clientHeight - noBtn.offsetHeight;
+
+            const x = Math.random() * maxX;
+            const y = Math.random() * maxY;
+
+            noBtn.style.left = x + "px";
+            noBtn.style.top = y + "px";
+        }, 500);
+    }
+});
 
 function yesClick() {
 document.body.innerHTML = `
@@ -86,10 +124,15 @@ color:white;
 text-align:center;
 padding:20px;
 ">
-<h1>Yayyy yourname! I knew it ❤️</h1>
+<h1>Yayyyy I knew it Anu! ❤️</h1>
+<h1>I love you Anu </h1>
+<p style="font-size:20px; margin-top:15px;">
+I love you so much 💕<br>
+You are my today, my tomorrow, and my forever.<br>
+With you, every moment feels magical ✨
+</p>
 <img
 src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif"
-alt="Dancing girl"
 style="width:250px; margin-top:20px; border-radius:20px;"
 >
 </div>`;
