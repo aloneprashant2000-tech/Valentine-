@@ -33,15 +33,13 @@ color: #ff4d6d;
 margin-bottom: 25px;
 }
 
-button, a {
+button {
 padding: 12px 25px;
 font-size: 16px;
 border: none;
 border-radius: 25px;
 cursor: pointer;
 transition: 0.3s;
-text-decoration: none;
-display: inline-block;
 }
 
 .yes {
@@ -54,12 +52,6 @@ background: #ddd;
 position: absolute;
 left: 20px;
 top: 120px;
-}
-
-.gift {
-background: white;
-color: #ff4d6d;
-margin-top: 20px;
 }
 
 @keyframes spin {
@@ -87,16 +79,20 @@ let movingStarted = false;
 
 noBtn.addEventListener("click", function() {
     clickCount++;
+
+    // YES button grows every time
     yesBtn.style.transform = `scale(${1 + clickCount * 0.2})`;
 
     if (clickCount === 1) {
         noBtn.style.transform = "scale(0.7)";
         noBtn.innerText = "Think again 😏";
-    } 
+    }
+
     else if (clickCount === 2) {
         noBtn.style.transform = "scale(0.4)";
         noBtn.innerText = "Are you sure? 🥺";
-    } 
+    }
+
     else if (clickCount === 3 && !movingStarted) {
         movingStarted = true;
         noBtn.innerText = "Catch me if you can 😜";
@@ -106,8 +102,11 @@ noBtn.addEventListener("click", function() {
             const maxX = card.clientWidth - noBtn.offsetWidth;
             const maxY = card.clientHeight - noBtn.offsetHeight;
 
-            noBtn.style.left = Math.random() * maxX + "px";
-            noBtn.style.top = Math.random() * maxY + "px";
+            const x = Math.random() * maxX;
+            const y = Math.random() * maxY;
+
+            noBtn.style.left = x + "px";
+            noBtn.style.top = y + "px";
         }, 500);
     }
 });
@@ -126,44 +125,15 @@ text-align:center;
 padding:20px;
 ">
 <h1>Yayyyy I knew it Anu! ❤️</h1>
-
-<p style="font-size:20px;">
+<p style="font-size:20px; margin-top:15px;">
 I love you so much 💕<br>
-You are my today, my tomorrow, and my forever ✨
+You are my today, my tomorrow, and my forever.<br>
+With you, every moment feels magical ✨
 </p>
-
-<a class="gift" onclick="giftPage()">🎁 A gift for you</a>
-</div>`;
-}
-
-function giftPage() {
-document.body.innerHTML = `
-<div style="
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-height:100vh;
-background:linear-gradient(135deg,#fad0c4,#ff9a9e);
-color:#ff4d6d;
-text-align:center;
-padding:30px;
-font-family:'Georgia', serif;
-">
-
-<h1>For You, Anu ❤️</h1>
-
-<p style="font-size:22px; line-height:1.6; max-width:500px;">
-In your smile, I found my peace,<br>
-In your eyes, my endless skies.<br><br>
-
-You are not just a part of my life,<br>
-You are the reason it feels so right.<br><br>
-
-If love had a name, it would be you,<br>
-If forever had a meaning, it would be us. 💕
-</p>
-
+<img
+src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif"
+style="width:250px; margin-top:20px; border-radius:20px;"
+>
 </div>`;
 }
 </script>
